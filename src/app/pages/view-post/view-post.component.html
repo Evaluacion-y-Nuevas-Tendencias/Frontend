@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="row">
+    <!-- Post Content Column -->
+    <div class="col-lg-8">
+      <!-- Title -->
+      <h1 class="mt-4">{{ post.title }}</h1>
+
+
+      <p class="lead">una publicación de <a routerLink="/profile/{{post.userId}}">{{post.user.username}}<!--{{getAuthor(post.userId)}}--></a></p>
+      <hr>
+
+      <!-- Date/Time -->
+      <p> Publicado el  {{ post.createdAt }}</p>
+
+      <!-- Update Time -->
+      <p> Ultima vez actualizado {{post.updatedAt}}</p>
+
+      <hr>
+
+      <!-- Description Post -->
+      <p>{{post.description}}</p>
+
+      <!-- Preview Image -->
+      <img class="img-fluid rounded" src="https://placehold.it/900x300" alt="">
+
+      <hr>
+
+      <div *ngIf="alreadyBookmark;else elseblock">
+        <a class="btn btn-primary" (click)="addBookmark()" href="/post/{{postId}}">Añadir a favoritos</a>
+        <br>
+      </div>
+      <ng-template #elseblock>
+        <a class="btn btn-primary" (click)="removeBookmark()" href="/post/{{postId}}">Quitar de favoritos</a>
+        <br>
+      </ng-template>
+      <br>
+
+      <div *ngIf="canBeEdited">
+        <div>
+          <a class="btn btn-primary" href="post/{{this.postId}}/hashtags">
+             Agregar  Hashtags
+          </a>
+        </div>
+        <br>
+        <div>
+          <a class="btn btn-primary" href="/post/{{this.postId}}/edit">Editar post</a>
+        </div>
+        <br>
+        <div>
+          <a class="btn btn-danger" href="/profile/{{this.userId}}" (click)="deletePost()">Eliminar Post</a>
+        </div>
+      </div>
+      <hr>
+
+
+      <!-- Post Conte -->
+      <p> {{post.content}} </p>
+
+      <app-list-comments [postId]=postId></app-list-comments>
+
+    </div>
+
+    <!-- Sidebar Widgets Column -->
+    <div class="col-md-4">
+
+      <!-- Search Widget -->
+      <div class="card my-4">
+        <h5 class="card-header">Search</h5>
+        <div class="card-body">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-append">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hashtag Widget -->
+      <app-list-hashtags [postId]=postId></app-list-hashtags>
+      <app-list-qualification [postId]="postId"></app-list-qualification>
+
+
+      <!-- Side Widget -->
+      <div class="card my-4">
+        <h5 class="card-header">Consejo del dia!</h5>
+        <div class="card-body">
+          “No tenía miedo a las dificultades: lo que la asustaba era la obligación de tener que escoger un camino. Escoger un camino significaba abandonar otros.”Paulo Coelho.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- /.row -->
+
+</div>
+<!-- /.container -->
